@@ -1,3 +1,6 @@
 node_modules/
+dist/
 *.json
 .env
+!package.json
+!tsconfig.json
