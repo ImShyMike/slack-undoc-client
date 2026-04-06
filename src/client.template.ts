@@ -89,11 +89,8 @@ export class SlackClient {
 
   private constructor(token: string, options: SlackClientOptions) {
     this.token = token;
-    if (!options.cookie.includes("%")) {
-      this.cookie = encodeURIComponent(options.cookie);
-    } else {
-      this.cookie = options.cookie;
-    };
+    if (!options.cookie) { throw new Error("Cookie value is required to create SlackClient"); }
+    this.cookie = options.cookie.includes("%") ? options.cookie : encodeURIComponent(options.cookie);
     this.workspace = options.workspace;
     this.fetch = options.fetch ?? globalThis.fetch.bind(globalThis);
   }
@@ -110,6 +107,7 @@ export class SlackClient {
     fetch?: typeof globalThis.fetch
   ): Promise<SlackWorkspaceTeam[]> {
     const fetchImpl = fetch ?? globalThis.fetch.bind(globalThis);
+    if (!cookie) { throw new Error("Cookie value is required to fetch available workspaces"); }
     const cookieValue = cookie.includes("%") ? cookie : encodeURIComponent(cookie);
 
     const res = await fetchImpl("https://app.slack.com/auth?app=client", {
