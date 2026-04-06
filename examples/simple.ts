@@ -1,5 +1,7 @@
+
+
 import "bun";
-import { SlackClient } from "./src";
+import { SlackClient } from "../src";
 
 const slack = await SlackClient.create({
   cookie: Bun.env.SLACK_COOKIE!,

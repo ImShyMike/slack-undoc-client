@@ -1,5 +1,5 @@
 import "bun";
-import { SlackClient } from "./src";
+import { SlackClient } from "../src";
 
 const slack = await SlackClient.create({
   token: Bun.env.SLACK_TOKEN!,
